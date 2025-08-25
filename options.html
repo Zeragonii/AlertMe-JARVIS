@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>AlertMe JARVIS</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <h2>AlertMe JARVIS Settings <span id="version"></span></h2>
+
+    <div class="option">
+        <label for="monitorUrl">URL to Monitor:</label>
+        <input type="text" id="monitorUrl" placeholder="Enter URL" />
+    </div>
+
+    <div class="option">
+        <input type="checkbox" id="enableMonitoring">
+        <label for="enableMonitoring">Enable Monitoring</label>
+    </div>
+
+    <div class="option">
+        <input type="checkbox" id="keepAwake">
+        <label for="keepAwake">Keep screen awake</label>
+    </div>
+
+    <div class="option">
+        <input type="checkbox" id="enableSound">
+        <label for="enableSound">Enable sound alerts</label>
+    </div>
+
+    <div class="option">
+        <label for="checkInterval">Check Interval (minutes):</label>
+        <input type="range" id="checkInterval" min="1" max="15" step="1">
+        <span id="checkIntervalValue">1</span>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>
