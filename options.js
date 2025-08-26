@@ -9,19 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const version = chrome.runtime.getManifest().version;
     document.getElementById("version").textContent = `v${version}`;
 
-    // Disable monitoring checkbox until a valid URL is present
-    // ⚠️ InfoSec might flag: enabling/disabling features based on user input
-    enableMonitoringCheckbox.disabled = !monitorUrlInput.value.trim();
-
     // Function to validate URL and enable/disable checkbox
     // ⚠️ InfoSec: URL parsing; this could be a source of malformed input if later used unsafely
     function validateUrl(url) {
         try {
             new URL(url);
             enableMonitoringCheckbox.disabled = false;
+            console.log("[Options] validateUrl → monitoring checkbox enabled");
         } catch {
             enableMonitoringCheckbox.disabled = true;
             enableMonitoringCheckbox.checked = false;
+            console.log("[Options] validateUrl → monitoring checkbox disabled due to invalid URL");
         }
     }
 
@@ -41,25 +39,29 @@ document.addEventListener("DOMContentLoaded", () => {
         validateUrlDebounced(e.target.value.trim());
     });
 
-    // Run validation on page load
-    validateUrlDebounced(monitorUrlInput.value.trim());
-
-    // Load saved preferences
+    // Load saved preferences (merged into one call)
     // ⚠️ InfoSec: local storage contains user settings and URL for monitoring
     chrome.storage.local.get(
-        { keepAwake: false, checkIntervalMinutes: 1, monitorUrl: "" },
+        { keepAwake: false, checkIntervalMinutes: 1, monitorUrl: "", enableSound: false, monitorEnabled: false },
         (data) => {
             keepAwakeCheckbox.checked = data.keepAwake;
             checkIntervalInput.value = data.checkIntervalMinutes;
             checkIntervalValue.textContent = data.checkIntervalMinutes;
             monitorUrlInput.value = data.monitorUrl; // restore saved URL
+
+            // ✅ Enable or disable monitoring checkbox based on saved URL
+            enableMonitoringCheckbox.disabled = data.monitorUrl.trim() === "";
+            console.log("[Options] Loaded monitorUrl, checkbox disabled:", enableMonitoringCheckbox.disabled);
+
+            // Restore sound + monitoring states
+            enableSoundCheckbox.checked = data.enableSound;
+            enableMonitoringCheckbox.checked = data.monitorEnabled && !enableMonitoringCheckbox.disabled;
+            console.log("[Options] Loaded monitorEnabled state:", enableMonitoringCheckbox.checked);
+
+            // ✅ Now validate AFTER the URL has been restored
+            validateUrlDebounced(monitorUrlInput.value.trim());
         }
     );
-
-    chrome.storage.local.get({ enableSound: false, monitorEnabled: false }, (data) => {
-        enableSoundCheckbox.checked = data.enableSound;
-        enableMonitoringCheckbox.checked = data.monitorEnabled;
-    });
 
     // Save preferences when checkboxes change
     keepAwakeCheckbox.addEventListener("change", () => {
@@ -110,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("[Options] monitorUrl set to:", trimmedUrl);
             // Enable the monitoring checkbox now that we have a URL
             enableMonitoringCheckbox.disabled = trimmedUrl === "";
+            console.log("[Options] Monitoring checkbox disabled:", enableMonitoringCheckbox.disabled);
         });
     }, 800);
 
