@@ -30,6 +30,7 @@ When a new ticket is detected:
 - [ ] Option to snooze alerts
 - [ ] Support for multiple ticketing systems (Shipment Spotlight, IBX Requests, etc..)
 - [ ] Customizable notification sound
+- [ ] Addition of Ticket # to alert popup
 
 ## 📜 License
 

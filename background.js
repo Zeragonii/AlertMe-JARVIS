@@ -48,7 +48,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // Re-apply whenever the keepAwake setting changes
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "sync" && changes.keepAwake) {
+  if (area === "local" && changes.keepAwake) {
     applyKeepAwakeSetting(); // ⚠️ keeps system awake based on user setting
   }
   // Update URL if changed
@@ -271,7 +271,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 // Handle interval changes (only if monitoring is enabled AND URL set)
 chrome.storage.onChanged.addListener((changes, area) => {
-    if ((area === "sync" || area === "local") && changes.checkIntervalMinutes) {
+    if (area === "local" && changes.checkIntervalMinutes) {
         chrome.storage.local.get({ monitorEnabled: false }, (data) => {
             if (data.monitorEnabled) {
                 if (!URL_TO_MONITOR) {
