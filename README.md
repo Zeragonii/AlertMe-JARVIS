@@ -25,8 +25,10 @@ When a new ticket is detected:
 - A popup window will appear with the ticket details
 - An audio alert will play (if enabled)
 
-## 🚧 Roadmap
+## 🚧 2.0 Roadmap
 
+- [ ] Prepare for 2.0 with optimisations based around localization, move text entries to an array storage format to allow programmatic switching between languages.
+- [ ] Prepare for 2.0 with prototype API demonstration in anticipation of support from JARVIS team. High level: host a custom endpoint node.js instance to model, test and demonstrate potential additional functionality.
 - [ ] Option to snooze alerts
 - [ ] Support for multiple ticketing systems (Shipment Spotlight, IBX Requests, etc..)
 - [ ] Customizable notification sound
