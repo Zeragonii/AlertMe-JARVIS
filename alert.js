@@ -55,20 +55,20 @@ const bodyEl = document.getElementById("alertBody");
 
 // --- Determine style + text based on type ---
 let bgColor = "#333";
-let titleText = "New Ticket";
+let titleText = t("alert.title");
 
 switch (type?.toLowerCase()) {
     case "danger":
         bgColor = "#E60028";
-        titleText = "🚨 New Trouble Ticket";
+        titleText = t("alert.danger");
         break;
     case "success":
         bgColor = "#28A745";
-        titleText = "✅ New Smart Hands";
+        titleText = t("alert.success");
         break;
     case "warning":
         bgColor = "#FFD33D";
-        titleText = "⚠️ New Cross Connect";
+        titleText = t("alert.warning");
         break;
 }
 

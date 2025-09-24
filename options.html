@@ -8,35 +8,37 @@
 </head>
 
 <body>
-    <h2>AlertMe JARVIS Settings <span id="version"></span></h2>
+    <h2 data-i18n="options.heading">AlertMe JARVIS Settings <span id="version"></span></h2>
 
     <div class="option">
-        <label for="monitorUrl">URL to Monitor:</label>
-        <input type="text" id="monitorUrl" placeholder="Enter URL" />
+        <label for="monitorUrl" data-i18n="options.urlLabel">URL to Monitor:</label>
+        <input type="text" id="monitorUrl" placeholder="Enter URL" data-i18n-placeholder="options.urlPlaceholder" />
     </div>
 
     <div class="option">
         <input type="checkbox" id="enableMonitoring">
-        <label for="enableMonitoring">Enable Monitoring</label>
+        <label for="enableMonitoring" data-i18n="options.enableMonitoring">Enable Monitoring</label>
     </div>
 
     <div class="option">
         <input type="checkbox" id="keepAwake">
-        <label for="keepAwake">Keep screen awake</label>
+        <label for="keepAwake" data-i18n="options.keepAwake">Keep screen awake</label>
     </div>
 
     <div class="option">
         <input type="checkbox" id="enableSound">
-        <label for="enableSound">Enable sound alerts</label>
+        <label for="enableSound" data-i18n="options.enableSound">Enable sound alerts</label>
     </div>
 
     <div class="option">
-        <label for="checkInterval">Check Interval (minutes):</label>
+        <label for="checkInterval" data-i18n="options.checkInterval">Check Interval (minutes):</label>
         <input type="range" id="checkInterval" min="1" max="15" step="1">
         <span id="checkIntervalValue">1</span>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="options.js"></script>
 </body>
+
 
 </html>
