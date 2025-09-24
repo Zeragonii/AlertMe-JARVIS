@@ -55,7 +55,7 @@ const bodyEl = document.getElementById("alertBody");
 
 // --- Determine style + text based on type ---
 let bgColor = "#333";
-let titleText = t("alert.title");
+let titleText = "test";//t("alert.title");
 
 switch (type?.toLowerCase()) {
     case "danger":
