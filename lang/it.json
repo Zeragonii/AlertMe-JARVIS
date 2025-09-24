@@ -1,0 +1,19 @@
+{
+    "alert": {
+      "title": "Nuovo Ticket",
+      "danger": "🚨 Nuovo Ticket di Problema",
+      "success": "✅ Nuovo Intervento Smart Hands",
+      "warning": "⚠️ Nuova Connessione Incrociata"
+    },
+    "options": {
+      "heading": "Impostazioni AlertMe JARVIS",
+      "urlLabel": "URL da Monitorare:",
+      "urlPlaceholder": "Inserisci URL",
+      "enableMonitoring": "Abilita Monitoraggio",
+      "keepAwake": "Mantieni schermo acceso",
+      "enableSound": "Abilita avvisi sonori",
+      "checkInterval": "Intervallo di Controllo (minuti):",
+            "overrideLang": "Sovrascrivi lingua del browser",
+      "languageSelect": "Seleziona lingua:"
+    }
+  }

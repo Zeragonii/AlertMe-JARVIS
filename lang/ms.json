@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Tiket Baru",
+    "danger": "🚨 Tiket Masalah Baru",
+    "success": "✅ Smart Hands Baru",
+    "warning": "⚠️ Cross Connect Baru"
+  },
+  "options": {
+    "heading": "Tetapan AlertMe JARVIS",
+    "urlLabel": "URL Untuk Dipantau:",
+    "urlPlaceholder": "Masukkan URL",
+    "enableMonitoring": "Aktifkan Pemantauan",
+    "keepAwake": "Pastikan Skrin Terus Hidup",
+    "enableSound": "Aktifkan Amaran Bunyi",
+    "checkInterval": "Selang Semak (minit):",
+          "overrideLang": "Ganti bahasa pelayar",
+      "languageSelect": "Pilih bahasa:"
+  }
+}

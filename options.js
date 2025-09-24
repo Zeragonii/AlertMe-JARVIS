@@ -120,4 +120,77 @@ document.addEventListener("DOMContentLoaded", () => {
     monitorUrlInput.addEventListener("input", (e) => {
         saveMonitorUrl(e.target.value);
     });
+
+    // Map language codes to user-friendly names
+const languageNames = {
+  "en": "English",
+  "es": "Spanish",
+  "pt-BR": "Portuguese (Brazil)",
+  "pt-PT": "Portuguese (Portugal)",
+  "fr": "French",
+  "zh-Hans": "Chinese (Simplified)",
+  "zh-Hant": "Chinese (Traditional)",
+  "ja": "Japanese",
+  "ko": "Korean",
+  "de": "German",
+  "it": "Italian",
+  "nl": "Dutch",
+  "id": "Indonesian",
+  "ar": "Arabic",
+  "ms": "Malaysian",
+  "pl": "Polish",
+  "sv": "Swedish",
+  "fi": "Finnish",
+  "tr": "Turkish",
+  "hi": "Hindi"
+};
+
+const overrideCheckbox = document.getElementById("overrideLang");
+const languageSelect = document.getElementById("languageSelect");
+
+// Populate the dropdown
+Object.entries(languageNames).forEach(([code, name]) => {
+  const option = document.createElement("option");
+  option.value = code;
+  option.textContent = name;
+  languageSelect.appendChild(option);
+});
+
+// Enable/disable dropdown based on checkbox
+overrideCheckbox.addEventListener("change", () => {
+  languageSelect.disabled = !overrideCheckbox.checked;
+
+  if (!overrideCheckbox.checked) {
+    localStorage.removeItem("langOverride");
+    // Re-apply translations using browser language
+    i18nReload();
+  }
+});
+
+// Change language live when dropdown changes
+languageSelect.addEventListener("change", () => {
+  if (overrideCheckbox.checked) {
+    const selectedLang = languageSelect.value;
+    localStorage.setItem("langOverride", selectedLang);
+    // Re-apply translations immediately
+    i18nReload();
+  }
+});
+
+// Load previous override if present
+const savedLang = localStorage.getItem("langOverride");
+if (savedLang) {
+  overrideCheckbox.checked = true;
+  languageSelect.disabled = false;
+  languageSelect.value = savedLang;
+}
+
+// Helper to reload i18n translations
+function i18nReload() {
+  if (typeof loadTranslations === "function") {
+    loadTranslations();
+  }
+}
+
+
 });

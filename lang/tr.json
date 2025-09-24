@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Yeni Bilet",
+    "danger": "🚨 Yeni Sorun Bileti",
+    "success": "✅ Yeni Smart Hands",
+    "warning": "⚠️ Yeni Cross Connect"
+  },
+  "options": {
+    "heading": "AlertMe JARVIS Ayarları",
+    "urlLabel": "İzlenecek URL:",
+    "urlPlaceholder": "URL girin",
+    "enableMonitoring": "İzlemeyi Etkinleştir",
+    "keepAwake": "Ekranı açık tut",
+    "enableSound": "Sesli uyarıları etkinleştir",
+    "checkInterval": "Kontrol aralığı (dakika):",
+          "overrideLang": "Tarayıcı dilini geçersiz kıl",
+      "languageSelect": "Dil seçin:"
+  }
+}

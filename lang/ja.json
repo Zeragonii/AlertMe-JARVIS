@@ -1,0 +1,19 @@
+{
+    "alert": {
+      "title": "新しいチケット",
+      "danger": "🚨 新しいトラブルチケット",
+      "success": "✅ 新しいスマートハンズ",
+      "warning": "⚠️ 新しいクロスコネクト"
+    },
+    "options": {
+      "heading": "AlertMe JARVIS 設定",
+      "urlLabel": "監視するURL:",
+      "urlPlaceholder": "URLを入力してください",
+      "enableMonitoring": "監視を有効にする",
+      "keepAwake": "画面を常にオンにする",
+      "enableSound": "音のアラートを有効にする",
+      "checkInterval": "チェック間隔（分）:",
+            "overrideLang": "ブラウザの言語を上書き",
+      "languageSelect": "言語を選択："
+    }
+  }

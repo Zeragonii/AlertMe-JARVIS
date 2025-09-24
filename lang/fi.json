@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Uusi tiketti",
+    "danger": "🚨 Uusi häiriötiketti",
+    "success": "✅ Uusi Smart Hands -työ",
+    "warning": "⚠️ Uusi Cross Connect"
+  },
+  "options": {
+    "heading": "AlertMe JARVIS -asetukset",
+    "urlLabel": "Seurattava URL:",
+    "urlPlaceholder": "Syötä URL",
+    "enableMonitoring": "Ota seuranta käyttöön",
+    "keepAwake": "Pidä näyttö päällä",
+    "enableSound": "Ota äänimerkit käyttöön",
+    "checkInterval": "Tarkistusväli (minuutteina):",
+          "overrideLang": "Ohita selaimen kieli",
+      "languageSelect": "Valitse kieli:"
+  }
+}

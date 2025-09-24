@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Neues Ticket",
+    "danger": "🚨 Neues Störungsticket",
+    "success": "✅ Neuer Smart Hands Auftrag",
+    "warning": "⚠️ Neue Cross Connect Anfrage"
+  },
+  "options": {
+    "heading": "AlertMe JARVIS Einstellungen",
+    "urlLabel": "Zu überwachende URL:",
+    "urlPlaceholder": "URL eingeben",
+    "enableMonitoring": "Überwachung aktivieren",
+    "keepAwake": "Bildschirm eingeschaltet lassen",
+    "enableSound": "Tonbenachrichtigungen aktivieren",
+    "checkInterval": "Prüfintervall (Minuten):",
+          "overrideLang": "Browsersprache überschreiben",
+      "languageSelect": "Sprache auswählen:"
+  }
+}

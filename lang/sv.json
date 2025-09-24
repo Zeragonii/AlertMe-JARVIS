@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Ny biljett",
+    "danger": "🚨 Nytt problemärende",
+    "success": "✅ Ny Smart Hands",
+    "warning": "⚠️ Ny Cross Connect"
+  },
+  "options": {
+    "heading": "AlertMe JARVIS-inställningar",
+    "urlLabel": "URL att övervaka:",
+    "urlPlaceholder": "Ange URL",
+    "enableMonitoring": "Aktivera övervakning",
+    "keepAwake": "Håll skärmen aktiv",
+    "enableSound": "Aktivera ljudaviseringar",
+    "checkInterval": "Kontrollintervall (minuter):",
+          "overrideLang": "Åsidosätt webbläsarens språk",
+      "languageSelect": "Välj språk:"
+  }
+}

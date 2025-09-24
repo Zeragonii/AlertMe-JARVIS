@@ -1,0 +1,19 @@
+{
+    "alert": {
+      "title": "새 티켓",
+      "danger": "🚨 새로운 문제 티켓",
+      "success": "✅ 새로운 스마트 핸즈",
+      "warning": "⚠️ 새로운 크로스 커넥트"
+    },
+    "options": {
+      "heading": "AlertMe JARVIS 설정",
+      "urlLabel": "모니터링할 URL:",
+      "urlPlaceholder": "URL 입력",
+      "enableMonitoring": "모니터링 활성화",
+      "keepAwake": "화면을 켜져 있게 유지",
+      "enableSound": "소리 알림 활성화",
+      "checkInterval": "확인 간격(분):",
+            "overrideLang": "브라우저 언어 덮어쓰기",
+      "languageSelect": "언어 선택:"
+    }
+  }

@@ -1,0 +1,19 @@
+{
+    "alert": {
+      "title": "Nieuwe Ticket",
+      "danger": "🚨 Nieuwe Probleem Ticket",
+      "success": "✅ Nieuwe Smart Hands Taak",
+      "warning": "⚠️ Nieuwe Cross Connect"
+    },
+    "options": {
+      "heading": "AlertMe JARVIS Instellingen",
+      "urlLabel": "URL te Monitoren:",
+      "urlPlaceholder": "Voer URL in",
+      "enableMonitoring": "Controle inschakelen",
+      "keepAwake": "Scherm actief houden",
+      "enableSound": "Geluid waarschuwingen activeren",
+      "checkInterval": "Controle-interval (minuten):",
+            "overrideLang": "Browsertaal overschrijven",
+      "languageSelect": "Selecteer taal:"
+    }
+  }

@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "新工單",
+    "danger": "🚨 新故障工單",
+    "success": "✅ 新 Smart Hands",
+    "warning": "⚠️ 新 Cross Connect"
+  },
+  "options": {
+    "heading": "AlertMe JARVIS 設定",
+    "urlLabel": "監控 URL：",
+    "urlPlaceholder": "輸入 URL",
+    "enableMonitoring": "啟用監控",
+    "keepAwake": "保持螢幕喚醒",
+    "enableSound": "啟用聲音提醒",
+    "checkInterval": "檢查間隔（分鐘）：",
+          "overrideLang": "覆蓋瀏覽器語言",
+      "languageSelect": "選擇語言："
+  }
+}

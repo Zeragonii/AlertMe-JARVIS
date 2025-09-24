@@ -1,0 +1,19 @@
+{
+  "alert": {
+    "title": "Nowy bilet",
+    "danger": "🚨 Nowy bilet problemowy",
+    "success": "✅ Nowa interwencja Smart Hands",
+    "warning": "⚠️ Nowe połączenie Cross Connect"
+  },
+  "options": {
+    "heading": "Ustawienia AlertMe JARVIS",
+    "urlLabel": "URL do monitorowania:",
+    "urlPlaceholder": "Wprowadź URL",
+    "enableMonitoring": "Włącz monitorowanie",
+    "keepAwake": "Utrzymuj ekran aktywny",
+    "enableSound": "Włącz alerty dźwiękowe",
+    "checkInterval": "Interwał sprawdzania (minuty):",
+          "overrideLang": "Nadpisz język przeglądarki",
+      "languageSelect": "Wybierz język:"
+  }
+}
