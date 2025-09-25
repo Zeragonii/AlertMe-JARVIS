@@ -47,11 +47,13 @@ const params = new URLSearchParams(window.location.search);
 const type = params.get("type");
 const value = params.get("value");
 const file = params.get("sound"); // name of the audio file
+const ticketNumber = params.get("ticketNumber"); //Ticket Number
 
 // --- Get DOM elements ---
 const titleEl = document.getElementById("title");
 const detailsEl = document.getElementById("details");
 const bodyEl = document.getElementById("alertBody");
+const ticketNumberEl = document.getElementById("ticket_number");
 
 // --- Load translations and then determine style + text based on type ---
 (async () => {
@@ -81,6 +83,7 @@ const bodyEl = document.getElementById("alertBody");
     bodyEl.style.backgroundColor = bgColor;
     titleEl.textContent = titleText;
     detailsEl.textContent = `${t("alert.ticketCount")} ${value}`;
+    ticketNumberEl.textContent = `${ticketNumber}`;
 
 
     // --- Play audio if enabled in options ---

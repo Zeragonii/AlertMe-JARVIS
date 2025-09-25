@@ -1,4 +1,6 @@
 let URL_TO_MONITOR = "";
+const API_CHECK_INTERVAL_MS = 10_000; // 10 seconds
+let apiCheckIntervalId = null;
 
 // Load stored URL instead
 // ⚠️ InfoSec might want to know: this URL is stored locally on the user's machine
@@ -88,7 +90,7 @@ function error(...args) {
 
 // Spawns alert windows
 // ⚠️ InfoSec might flag: creates popup windows and can play sounds, could be considered intrusive
-function spawnAlert(type, currentValue, soundFile) {
+function spawnAlert(type, currentValue, soundFile, ticketNumber) {
     const typeLower = type.toLowerCase();
 
     let titleText = "";
@@ -110,7 +112,7 @@ function spawnAlert(type, currentValue, soundFile) {
     }
 
     const alertURL = chrome.runtime.getURL(
-        `alert.html?type=${typeLower}&title=${encodeURIComponent(titleText)}&color=${encodeURIComponent(bgColor)}&sound=${soundFile}&value=${currentValue}`
+        `alert.html?type=${typeLower}&title=${encodeURIComponent(titleText)}&color=${encodeURIComponent(bgColor)}&sound=${soundFile}&value=${currentValue}&ticketNumber=${ticketNumber}`
     );
 
     const width = 400;
@@ -192,15 +194,15 @@ async function checkPage() {
 
             if (values.danger > data.danger) {
                 log("[TicketMonitor] Danger increased!");
-                spawnAlert("danger", values.danger, "sounds/new-trouble-ticket.wav");
+                spawnAlert("danger", values.danger, "sounds/new-trouble-ticket.wav","");
             }
             if (values.success > data.success) {
                 log("[TicketMonitor] Success increased!");
-                spawnAlert("success", values.success, "sounds/new-smart-hands.wav");
+                spawnAlert("success", values.success, "sounds/new-smart-hands.wav","");
             }
             if (values.warning > data.warning) {
                 log("[TicketMonitor] Warning increased!");
-                spawnAlert("warning", values.warning, "sounds/new-cross-connect.wav");
+                spawnAlert("warning", values.warning, "sounds/new-cross-connect.wav","");
             }
 
             // ⚠️ InfoSec might want to check: local storage of ticket counts
@@ -222,6 +224,18 @@ async function checkPage() {
         });
     }
 }
+function initAPIChecks() {
+  // Clear any existing interval just in case
+  if (apiCheckIntervalId) clearInterval(apiCheckIntervalId);
+
+  // Start new interval
+  apiCheckIntervalId = setInterval(() => {
+    log("[TicketMonitor] Triggering API check...");
+    checkTicketsViaAPI();
+  }, API_CHECK_INTERVAL_MS);
+
+  log("[TicketMonitor] API checks initialized every 10s");
+}
 
 // ---------------- NEW MONITORING CONTROL ----------------
 function initMonitoring() {
@@ -233,12 +247,17 @@ function initMonitoring() {
         return;
     }
 
+
     chrome.storage.local.get({ monitorEnabled: false }, (data) => {
         if (data.monitorEnabled) {
             chrome.storage.local.get({ checkIntervalMinutes: CHECK_INTERVAL_MINUTES }, (syncData) => {
                 const interval = Math.max(1, Number(syncData.checkIntervalMinutes));
                 log("[TicketMonitor] Monitoring enabled on startup. Interval:", interval);
                 checkPage(); // run immediately
+                if (data.monitorEnabled) {
+                    log("[TicketMonitor] Starting API monitoring...");
+                    initAPIChecks(); // separate from checkPage / alarms
+                }
                 chrome.alarms.create("checkTickets", { periodInMinutes: interval });
             });
         } else {
@@ -258,6 +277,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
             }
             log("[TicketMonitor] Monitoring enabled by user.");
             checkPage();
+                checkTicketsViaAPI();
             chrome.storage.local.get({ checkIntervalMinutes: CHECK_INTERVAL_MINUTES }, (syncData) => {
                 const interval = Math.max(1, Number(syncData.checkIntervalMinutes));
                 chrome.alarms.create("checkTickets", { periodInMinutes: interval });
@@ -265,6 +285,9 @@ chrome.storage.onChanged.addListener((changes, area) => {
         } else {
             log("[TicketMonitor] Monitoring disabled by user.");
             chrome.alarms.clear("checkTickets");
+            clearInterval(apiCheckIntervalId);
+            apiCheckIntervalId = null;
+            log("[TicketMonitor] API monitoring stopped");
         }
     }
 });
@@ -294,10 +317,77 @@ chrome.storage.onChanged.addListener((changes, area) => {
 chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === "checkTickets") {
         if (!URL_TO_MONITOR) {
-            log("[TicketMonitor] Alarm triggered but no monitorUrl configured.");
+            log("[TicketMonitor] Alarm triggered: using API mode instead.");
+            checkTicketsViaAPI();
             return;
         }
-        log("[TicketMonitor] Alarm triggered:", alarm.name);
-        checkPage();
+
+    log("[TicketMonitor] Alarm triggered: using page scrape mode.");
+    checkPage();
     }
 });
+
+const QUEUES = ["danger", "success", "warning"];
+const SOUNDS = {
+  danger: "sounds/new-trouble-ticket.wav",
+  success: "sounds/new-smart-hands.wav",
+  warning: "sounds/new-cross-connect.wav"
+};
+
+async function checkTicketsViaAPI() {
+  for (const queue of QUEUES) {
+    try {
+      const payload = {
+        user_id: "demo_user",
+        session: "session_abc123",
+        ibx: "IBX01",
+        queue
+      };
+
+      const response = await fetch("http://192.168.1.216:3000/tickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) throw new Error(`API responded with ${response.status}`);
+
+      const result = await response.json();
+      log(`[TicketMonitor] API response for ${queue}:`, result);
+
+      chrome.storage.local.get(
+        { [`${queue}_ticket_numbers`]: [] },
+        (data) => {
+          const oldNumbers = data[`${queue}_ticket_numbers`] || [];
+          const oldSet = new Set(oldNumbers);
+
+          // Determine which ticket numbers are new
+          const newTickets = (result.ticket_numbers || []).filter(
+            (t) => !oldSet.has(t)
+          );
+
+          // Spawn an alert for each new ticket
+          newTickets.forEach((ticket_number) => {
+            spawnAlert(
+              queue,
+              result.ticket_numbers.length, // current count for logging / alert
+              SOUNDS[queue],
+              ticket_number
+            );
+          });
+
+          // Save updated ticket numbers only
+          const storageUpdate = {};
+          storageUpdate[`${queue}_ticket_numbers`] = result.ticket_numbers || [];
+          chrome.storage.local.set(storageUpdate, () => {
+            log(`[TicketMonitor] Stored ${queue} ticket numbers:`, result.ticket_numbers);
+          });
+        }
+      );
+    } catch (err) {
+      error(`[TicketMonitor] API check failed for ${queue}:`, err);
+    }
+  }
+}
+
+
