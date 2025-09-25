@@ -33,7 +33,7 @@ chrome.action.onClicked.addListener(() => {
     url: "options.html",
     type: "popup",
     width: 480,
-    height: 350,
+    height: 380,
     focused: true
   });
 });
