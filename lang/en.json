@@ -3,7 +3,8 @@
     "title": "New Ticket",
     "danger": "🚨 New Trouble Ticket",
     "success": "✅ New Smart Hands",
-    "warning": "⚠️ New Cross Connect"
+    "warning": "⚠️ New Cross Connect",
+    "ticketCount": "Current Ticket Count: "
   },
   "options": {
     "heading": "AlertMe JARVIS Settings",

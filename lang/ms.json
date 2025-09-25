@@ -3,7 +3,8 @@
     "title": "Tiket Baru",
     "danger": "🚨 Tiket Masalah Baru",
     "success": "✅ Smart Hands Baru",
-    "warning": "⚠️ Cross Connect Baru"
+    "warning": "⚠️ Cross Connect Baru",
+    "ticketCount": "Bilangan tiket semasa: "
   },
   "options": {
     "heading": "Tetapan AlertMe JARVIS",

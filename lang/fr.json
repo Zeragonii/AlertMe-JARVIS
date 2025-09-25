@@ -3,7 +3,8 @@
     "title": "Nouveau Ticket",
     "danger": "🚨 Nouveau Ticket Problème",
     "success": "✅ Nouvelle Intervention Smart Hands",
-    "warning": "⚠️ Nouvelle Connexion Croisée"
+    "warning": "⚠️ Nouvelle Connexion Croisée",
+    "ticketCount": "Nombre actuel de tickets : "
   },
   "options": {
     "heading": "Paramètres AlertMe JARVIS",

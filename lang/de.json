@@ -3,7 +3,8 @@
     "title": "Neues Ticket",
     "danger": "🚨 Neues Störungsticket",
     "success": "✅ Neuer Smart Hands Auftrag",
-    "warning": "⚠️ Neue Cross Connect Anfrage"
+    "warning": "⚠️ Neue Cross Connect Anfrage",
+    "ticketCount": "Aktuelle Ticketanzahl: "
   },
   "options": {
     "heading": "AlertMe JARVIS Einstellungen",

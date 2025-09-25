@@ -3,7 +3,8 @@
     "title": "Yeni Bilet",
     "danger": "🚨 Yeni Sorun Bileti",
     "success": "✅ Yeni Smart Hands",
-    "warning": "⚠️ Yeni Cross Connect"
+    "warning": "⚠️ Yeni Cross Connect",
+    "ticketCount": "Mevcut bilet sayısı: "
   },
   "options": {
     "heading": "AlertMe JARVIS Ayarları",

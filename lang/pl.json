@@ -3,7 +3,8 @@
     "title": "Nowy bilet",
     "danger": "🚨 Nowy bilet problemowy",
     "success": "✅ Nowa interwencja Smart Hands",
-    "warning": "⚠️ Nowe połączenie Cross Connect"
+    "warning": "⚠️ Nowe połączenie Cross Connect",
+    "ticketCount": "Aktualna liczba biletów: "
   },
   "options": {
     "heading": "Ustawienia AlertMe JARVIS",

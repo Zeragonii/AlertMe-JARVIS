@@ -53,34 +53,40 @@ const titleEl = document.getElementById("title");
 const detailsEl = document.getElementById("details");
 const bodyEl = document.getElementById("alertBody");
 
-// --- Determine style + text based on type ---
-let bgColor = "#333";
-let titleText = "test";//t("alert.title");
+// --- Load translations and then determine style + text based on type ---
+(async () => {
+    // Wait for translations to load
+    await loadTranslations(); // assumes loadTranslations() from i18n.js returns a Promise
 
-switch (type?.toLowerCase()) {
-    case "danger":
-        bgColor = "#E60028";
-        titleText = t("alert.danger");
-        break;
-    case "success":
-        bgColor = "#28A745";
-        titleText = t("alert.success");
-        break;
-    case "warning":
-        bgColor = "#FFD33D";
-        titleText = t("alert.warning");
-        break;
-}
+    let bgColor = "#333";
+    let titleText = params.get("title") || "Alert";
 
-// --- Apply styles and text ---
-// InfoSec note: DOM manipulation is local, but always be aware of XSS if any content were dynamic or external.
-bodyEl.style.backgroundColor = bgColor;
-titleEl.textContent = titleText;
-detailsEl.textContent = `Current Ticket Count: ${value}`;
+    switch (type?.toLowerCase()) {
+        case "danger":
+            bgColor = "#E60028";
+            titleText = t("alert.danger");
+            break;
+        case "success":
+            bgColor = "#28A745";
+            titleText = t("alert.success");
+            break;
+        case "warning":
+            bgColor = "#FFD33D";
+            titleText = t("alert.warning");
+            break;
+    }
 
-// --- Play audio if enabled in options ---
-// InfoSec note: user preference controls whether sound plays; no sensitive data leaves the extension.
-chrome.storage.local.get({ enableSound: false }, (data) => {
-    if (!data.enableSound) return; // Exit if sound is disabled
-    playSound(file);
-});
+    // --- Apply styles and text ---
+    // InfoSec note: DOM manipulation is local, but always be aware of XSS if any content were dynamic or external.
+    bodyEl.style.backgroundColor = bgColor;
+    titleEl.textContent = titleText;
+    detailsEl.textContent = `${t("alert.ticketCount")} ${value}`;
+
+
+    // --- Play audio if enabled in options ---
+    // InfoSec note: user preference controls whether sound plays; no sensitive data leaves the extension.
+    chrome.storage.local.get({ enableSound: false }, (data) => {
+        if (!data.enableSound) return; // Exit if sound is disabled
+        playSound(file);
+    });
+})();

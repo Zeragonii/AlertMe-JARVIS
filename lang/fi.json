@@ -3,7 +3,8 @@
     "title": "Uusi tiketti",
     "danger": "🚨 Uusi häiriötiketti",
     "success": "✅ Uusi Smart Hands -työ",
-    "warning": "⚠️ Uusi Cross Connect"
+    "warning": "⚠️ Uusi Cross Connect",
+    "ticketCount": "Nykyinen lippujen määrä: "
   },
   "options": {
     "heading": "AlertMe JARVIS -asetukset",

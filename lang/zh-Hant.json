@@ -3,7 +3,8 @@
     "title": "新工單",
     "danger": "🚨 新故障工單",
     "success": "✅ 新 Smart Hands",
-    "warning": "⚠️ 新 Cross Connect"
+    "warning": "⚠️ 新 Cross Connect",
+    "ticketCount": "当前票务数量："
   },
   "options": {
     "heading": "AlertMe JARVIS 設定",

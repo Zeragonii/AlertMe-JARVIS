@@ -3,7 +3,8 @@
       "title": "新しいチケット",
       "danger": "🚨 新しいトラブルチケット",
       "success": "✅ 新しいスマートハンズ",
-      "warning": "⚠️ 新しいクロスコネクト"
+      "warning": "⚠️ 新しいクロスコネクト",
+      "ticketCount": "現在のチケット数："
     },
     "options": {
       "heading": "AlertMe JARVIS 設定",

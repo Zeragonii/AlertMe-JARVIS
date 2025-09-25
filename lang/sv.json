@@ -3,7 +3,8 @@
     "title": "Ny biljett",
     "danger": "🚨 Nytt problemärende",
     "success": "✅ Ny Smart Hands",
-    "warning": "⚠️ Ny Cross Connect"
+    "warning": "⚠️ Ny Cross Connect",
+    "ticketCount": "Aktuellt antal biljetter: "
   },
   "options": {
     "heading": "AlertMe JARVIS-inställningar",

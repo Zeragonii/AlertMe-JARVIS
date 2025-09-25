@@ -3,7 +3,8 @@
       "title": "Nieuwe Ticket",
       "danger": "🚨 Nieuwe Probleem Ticket",
       "success": "✅ Nieuwe Smart Hands Taak",
-      "warning": "⚠️ Nieuwe Cross Connect"
+      "warning": "⚠️ Nieuwe Cross Connect",
+      "ticketCount": "Huidig aantal tickets: "
     },
     "options": {
       "heading": "AlertMe JARVIS Instellingen",

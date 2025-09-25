@@ -3,7 +3,8 @@
       "title": "새 티켓",
       "danger": "🚨 새로운 문제 티켓",
       "success": "✅ 새로운 스마트 핸즈",
-      "warning": "⚠️ 새로운 크로스 커넥트"
+      "warning": "⚠️ 새로운 크로스 커넥트",
+      "ticketCount": "현재 티켓 수: "
     },
     "options": {
       "heading": "AlertMe JARVIS 설정",

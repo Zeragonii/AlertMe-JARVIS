@@ -31,41 +31,40 @@ let lang = defaultLang;
  * Handles region codes and Chinese variants.
  */
 function detectLanguage() {
+  const override = localStorage.getItem("langOverride");
+  if (override && supportedLangs.includes(override)) return override;
+
   const rawLang = navigator.language || navigator.userLanguage || defaultLang;
   const tag = rawLang.replace("_", "-");
 
-  // Chinese variants
   if (tag.startsWith("zh")) {
     if (/-?(tw|hk|hant|mo)$/i.test(tag)) return "zh-Hant";
     return "zh-Hans";
   }
 
-  // Exact match (e.g. pt-BR)
   if (supportedLangs.includes(tag)) return tag;
 
-  // Base language match (e.g. en-US -> en)
   const base = tag.split("-")[0];
   if (supportedLangs.includes(base)) return base;
 
-  // Fallback to default
   return defaultLang;
 }
 
 /**
  * Loads the translation JSON for the detected language and applies it
  */
-function loadTranslations(callback) {
+function loadTranslations() {
   lang = detectLanguage();
-
-  fetch(`/lang/${lang}.json`)
+  return fetch(`/lang/${lang}.json`)
     .then(res => res.json())
     .then(data => {
       translations = data;
       applyTranslations();
-      if (callback) callback();
+      return translations; // resolve with translations
     })
     .catch(err => {
-      console.error(`Could not load /lang/${lang}.json`, err);
+      console.error("Failed to load translations:", err);
+      return {};
     });
 }
 

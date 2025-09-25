@@ -3,7 +3,8 @@
       "title": "Nuovo Ticket",
       "danger": "🚨 Nuovo Ticket di Problema",
       "success": "✅ Nuovo Intervento Smart Hands",
-      "warning": "⚠️ Nuova Connessione Incrociata"
+      "warning": "⚠️ Nuova Connessione Incrociata",
+      "ticketCount": "Numero attuale dei ticket: "
     },
     "options": {
       "heading": "Impostazioni AlertMe JARVIS",
