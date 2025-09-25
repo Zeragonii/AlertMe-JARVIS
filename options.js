@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load saved preferences (merged into one call)
     // ⚠️ InfoSec: local storage contains user settings and URL for monitoring
     chrome.storage.local.get(
-        { keepAwake: false, checkIntervalMinutes: 1, monitorUrl: "", enableSound: false, monitorEnabled: false },
+        { keepAwake: false, checkIntervalMinutes: 1, monitorUrl: "", enableSound: false, monitorEnabled: false, langOverride: null },
         (data) => {
             keepAwakeCheckbox.checked = data.keepAwake;
             checkIntervalInput.value = data.checkIntervalMinutes;
@@ -60,6 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // ✅ Now validate AFTER the URL has been restored
             validateUrlDebounced(monitorUrlInput.value.trim());
+
+            // Restore language override if present
+            if (data.langOverride) {
+                overrideCheckbox.checked = true;
+                languageSelect.disabled = false;
+                languageSelect.value = data.langOverride;
+            }
         }
     );
 
@@ -122,75 +129,70 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Map language codes to user-friendly names
-const languageNames = {
-  "en": "English",
-  "es": "Spanish",
-  "pt-BR": "Portuguese (Brazil)",
-  "pt-PT": "Portuguese (Portugal)",
-  "fr": "French",
-  "zh-Hans": "Chinese (Simplified)",
-  "zh-Hant": "Chinese (Traditional)",
-  "ja": "Japanese",
-  "ko": "Korean",
-  "de": "German",
-  "it": "Italian",
-  "nl": "Dutch",
-  "id": "Indonesian",
-  "ar": "Arabic",
-  "ms": "Malaysian",
-  "pl": "Polish",
-  "sv": "Swedish",
-  "fi": "Finnish",
-  "tr": "Turkish",
-  "hi": "Hindi"
-};
+    const languageNames = {
+      "en": "English",
+      "es": "Spanish",
+      "pt-BR": "Portuguese (Brazil)",
+      "pt-PT": "Portuguese (Portugal)",
+      "fr": "French",
+      "zh-Hans": "Chinese (Simplified)",
+      "zh-Hant": "Chinese (Traditional)",
+      "ja": "Japanese",
+      "ko": "Korean",
+      "de": "German",
+      "it": "Italian",
+      "nl": "Dutch",
+      "id": "Indonesian",
+      "ar": "Arabic",
+      "ms": "Malaysian",
+      "pl": "Polish",
+      "sv": "Swedish",
+      "fi": "Finnish",
+      "tr": "Turkish",
+      "hi": "Hindi"
+    };
 
-const overrideCheckbox = document.getElementById("overrideLang");
-const languageSelect = document.getElementById("languageSelect");
+    const overrideCheckbox = document.getElementById("overrideLang");
+    const languageSelect = document.getElementById("languageSelect");
 
-// Populate the dropdown
-Object.entries(languageNames).forEach(([code, name]) => {
-  const option = document.createElement("option");
-  option.value = code;
-  option.textContent = name;
-  languageSelect.appendChild(option);
-});
+    // Populate the dropdown
+    Object.entries(languageNames).forEach(([code, name]) => {
+      const option = document.createElement("option");
+      option.value = code;
+      option.textContent = name;
+      languageSelect.appendChild(option);
+    });
 
-// Enable/disable dropdown based on checkbox
-overrideCheckbox.addEventListener("change", () => {
-  languageSelect.disabled = !overrideCheckbox.checked;
+    // Enable/disable dropdown based on checkbox
+    overrideCheckbox.addEventListener("change", () => {
+      languageSelect.disabled = !overrideCheckbox.checked;
 
-  if (!overrideCheckbox.checked) {
-    localStorage.removeItem("langOverride");
-    // Re-apply translations using browser language
-    i18nReload();
-  }
-});
+      if (!overrideCheckbox.checked) {
+        chrome.storage.local.remove("langOverride", () => {
+          console.log("[Options] Language override removed");
+          // Re-apply translations using browser language
+          i18nReload();
+        });
+      }
+    });
 
-// Change language live when dropdown changes
-languageSelect.addEventListener("change", () => {
-  if (overrideCheckbox.checked) {
-    const selectedLang = languageSelect.value;
-    localStorage.setItem("langOverride", selectedLang);
-    // Re-apply translations immediately
-    i18nReload();
-  }
-});
+    // Change language live when dropdown changes
+    languageSelect.addEventListener("change", () => {
+      if (overrideCheckbox.checked) {
+        const selectedLang = languageSelect.value;
+        chrome.storage.local.set({ langOverride: selectedLang }, () => {
+          console.log("[Options] Language override set to:", selectedLang);
+          // Re-apply translations immediately
+          i18nReload();
+        });
+      }
+    });
 
-// Load previous override if present
-const savedLang = localStorage.getItem("langOverride");
-if (savedLang) {
-  overrideCheckbox.checked = true;
-  languageSelect.disabled = false;
-  languageSelect.value = savedLang;
-}
-
-// Helper to reload i18n translations
-function i18nReload() {
-  if (typeof loadTranslations === "function") {
-    loadTranslations();
-  }
-}
-
+    // Helper to reload i18n translations
+    function i18nReload() {
+      if (typeof loadTranslations === "function") {
+        loadTranslations();
+      }
+    }
 
 });
